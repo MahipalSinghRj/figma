@@ -11,9 +11,9 @@ class _NewsFeedState extends State<NewsFeed> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
+      child: SingleChildScrollView(
+        child: Scaffold(
+          body: Container(
             padding: const EdgeInsets.all(8),
             height: MediaQuery.of(context).size.height,
             child: Column(

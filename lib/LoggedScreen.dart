@@ -80,7 +80,7 @@ class _LoggedScreenState extends State<LoggedScreen> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
