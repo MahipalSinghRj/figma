@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-
 import 'Page1.dart';
 import 'Page2.dart';
 import 'Page3.dart';
@@ -17,23 +13,14 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  List<String> banners = [
-    "https://images.unsplash.com/photo-1595875197145-a0d6828b58e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bmF0dXJ8ZW58MHx8MHx8&w=1000&q=80",
-    "assets/<img.png>",
-    "",
-    "",
-    "",
-  ];
-
   int pageIndex = 2;
 
   final pages = [
     const Page1(),
     const Page2(),
-    const Page5(),
     const Page3(),
     const Page4(),
-
+    const Page5(),
   ];
 
   @override
@@ -41,14 +28,15 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: const Color(0xffC4DFCB),
       appBar: AppBar(
-        title: const Center(
-            child: Text(
-          "Live long",
-        )),
+        centerTitle: true,
+        title: const Text(
+          'Dashboard home',
+        ),
         leading: Icon(
           Icons.home,
           color: Theme.of(context).primaryColor,
         ),
+        leadingWidth: 10,
       ),
       body: pages[pageIndex],
       bottomNavigationBar: buildMynavBar(context),
@@ -58,13 +46,6 @@ class _DashboardState extends State<Dashboard> {
   buildMynavBar(BuildContext context) {
     return Container(
       height: 60,
-      // decoration: BoxDecoration(
-      //   color: Theme.of(context).primaryColor,
-      //   borderRadius: const BorderRadius.only(
-      //     topLeft: Radius.circular(20),
-      //     topRight: Radius.circular(20),
-      //   ),
-      // ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -104,19 +85,26 @@ class _DashboardState extends State<Dashboard> {
                     size: 35,
                   ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.18,
-            height: MediaQuery.of(context).size.width * 0.1,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              gradient: LinearGradient(
-                begin: Alignment(-0.95, 0.0),
-                end: Alignment(1.0, 0.0),
-                colors: [const Color(0xff667eea), const Color(0xff64b6ff)],
-                stops: [0.0, 1.0],
+          InkWell(
+            onTap: () {
+              setState(() {
+                pageIndex = 2;
+              });
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.17,
+              height: MediaQuery.of(context).size.width * 0.09,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                gradient: const LinearGradient(
+                  begin: Alignment(-0.95, 0.0),
+                  end: Alignment(1.0, 0.0),
+                  colors: [Color(0xff667eea), Colors.pinkAccent],
+                  stops: [0.0, 1.0],
+                ),
               ),
+              child: const Icon(Icons.add),
             ),
-            child:Icon(Icons.add),
           ),
           IconButton(
             onPressed: () {
@@ -156,18 +144,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-    );
-  }
-
-  _buildBanners() {
-    return Container(
-      height: 400,
-      child: ListView.builder(
-          itemCount: banners.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Image.asset(banners[index]);
-          }),
     );
   }
 }
