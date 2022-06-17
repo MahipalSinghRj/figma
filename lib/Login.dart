@@ -1,3 +1,4 @@
+import 'package:figma/ApiConstants/ApiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -17,15 +18,16 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final GlobalKey<ScaffoldState> _scaffoldkey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool isLoading = false;
   bool isLogin = false;
-  bool isVisibility=false;
+  bool isVisibility = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -45,7 +47,8 @@ class _LoginState extends State<Login> {
                 children: [
                   const Text(
                     "Login",
-                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),
+                    style:
+                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(
                     height: 30.0,
@@ -97,9 +100,7 @@ class _LoginState extends State<Login> {
                         icon: Icon(isVisibility
                             ? Icons.visibility
                             : Icons.visibility_off),
-                        color: isVisibility
-                            ? Colors.grey
-                            : Colors.grey,
+                        color: isVisibility ? Colors.grey : Colors.grey,
                         onPressed: () {
                           setState(() {
                             isVisibility = !isVisibility;
@@ -132,18 +133,29 @@ class _LoginState extends State<Login> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ElevatedButton(
-                        onPressed: () {
-                          login(emailController.text.toString(),
-                              passwordController.text.toString());
-                          showSnackBar();
-                          Future.delayed(const Duration(seconds: 2), () {
-                            emailController.text = "";
-                            passwordController.text = "";
-                            setState(() {
-                              isLoading = true;
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await login(emailController.text.toString(),
+                                    passwordController.text.toString())
+                                .then((value) {
+                              if (value) {
+                                showInSnackBar("Login Successful");
+
+                                Future.delayed(const Duration(seconds: 2), () {
+                                  emailController.text = "";
+                                  passwordController.text = "";
+
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  Get.to(() => const Dashboard());
+                                });
+                              } else {
+                                showInSnackBar("Invalid credentials...");
+                              }
                             });
-                            Get.to(() => const Dashboard());
-                          });
+                          }
+
                         },
                         child: const Text(
                           "Login",
@@ -163,18 +175,9 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void showSnackBar() {
-    const snackBarContent = SnackBar(
-      content: Text("Login successful"),
-
-    );
-    _scaffoldkey.currentState?.showSnackBar(snackBarContent);
-  }
-
   Future<bool> login(String email, String password) async {
     try {
-      var response =
-          await post(Uri.parse("https://reqres.in/api/login"), body: {
+      var response = await post(Uri.parse(ApiConstants().loginApi), body: {
         "email": email,
         "password": password,
       });
@@ -188,5 +191,11 @@ class _LoginState extends State<Login> {
     } catch (e) {
       return false;
     }
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text(value),
+    ));
   }
 }

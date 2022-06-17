@@ -24,7 +24,7 @@
 19-->[androidx.core:core:1.6.0] C:\Users\mahipal.softserv\.gradle\caches\transforms-2\files-2.1\122df2e57d294d1a53db26bbc3b813c1\core-1.6.0\AndroidManifest.xml:24:18-86
 20        android:debuggable="true"
 21        android:icon="@mipmap/ic_launcher"
-22        android:label="figma" >
+22        android:label="Bhawani" >
 23        <activity
 24            android:name="com.example.figma.MainActivity"
 25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

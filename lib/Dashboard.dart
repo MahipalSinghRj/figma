@@ -32,11 +32,6 @@ class _DashboardState extends State<Dashboard> {
         title: const Text(
           'Dashboard home',
         ),
-        leading: Icon(
-          Icons.home,
-          color: Theme.of(context).primaryColor,
-        ),
-        leadingWidth: 10,
       ),
       body: pages[pageIndex],
       bottomNavigationBar: buildMynavBar(context),

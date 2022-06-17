@@ -32,7 +32,8 @@ class _LoggedScreenState extends State<LoggedScreen> {
                 Positioned.fill(
                   child: Center(
                     child: SizedBox(
-                      child: Image.asset("assets/photo.png",
+                      child: Image.asset(
+                        "assets/photo.png",
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -46,31 +47,32 @@ class _LoggedScreenState extends State<LoggedScreen> {
                       Row(
                         children: [
                           CircleAvatar(
-                            maxRadius: 30,
-                            minRadius: 20,
-                            backgroundColor: Colors.transparent,
-                            child: Image.asset(
-                              "assets/circular.png",
-                            ),
-                            //backgroundColor: Colors.transparent,
-                          ),
+                              maxRadius: 25,
+                              backgroundColor: Colors.transparent,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.asset("assets/mahipal.jpg"),
+                              )
+                              //backgroundColor: Colors.transparent,
+                              ),
                           const SizedBox(
-                            width: 2,
+                            width: 5,
                           ),
                           Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text("Mahipal_Project"),
+                              const Text(
+                                "Bhawani_Project",
+                                style: TextStyle(fontWeight: FontWeight.w800),
+                              ),
                               const SizedBox(
                                 height: 5,
                               ),
                               Row(
                                 children: const [
-                                   Text(
-                                    "@Mahi_1234",
-                                    style: TextStyle(
-                                        color: Colors.black54),
+                                  Text(
+                                    "@Mahi_7773",
+                                    style: TextStyle(color: Colors.black54),
                                   ),
                                 ],
                               ),
@@ -84,56 +86,60 @@ class _LoggedScreenState extends State<LoggedScreen> {
               ],
             ),
           ),
-
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0,bottom: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  child: Container(
-                    width: 167,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purpleAccent),
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.white),
-                    child: const Text(
-                      'LOGIN',style: TextStyle(color: Colors.purpleAccent),
-                      textAlign: TextAlign.center,
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                  ),
-                  onTap: (){
-                    print("********Login*********");
-                    Get.off(Login());
-                  },
-                ),
-                InkWell(
-                  onTap: (){
-                    Get.to(()=> Register());
-                    print("********Register*********");
-                  },
-                  child: Container(
-                    width: 167,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        //border: Border.all(color: Colors.purpleAccent),
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.black),
-                    child:  const Text(
-                      'REGISTER',style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
+          buildPadding(),
         ],
       ),
     );
+  }
+
+  Padding buildPadding() {
+    return Padding(
+          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InkWell(
+                child: Container(
+                  width: 167,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.purpleAccent),
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.white),
+                  child: const Text(
+                    'LOGIN',
+                    style: TextStyle(color: Colors.purpleAccent),
+                    textAlign: TextAlign.center,
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                ),
+                onTap: () {
+                  print("********Login*********");
+                  Get.off(Login());
+                },
+              ),
+              InkWell(
+                onTap: () {
+                  Get.to(() => Register());
+                  print("********Register*********");
+                },
+                child: Container(
+                  width: 167,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      //border: Border.all(color: Colors.purpleAccent),
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.black),
+                  child: const Text(
+                    'REGISTER',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                  padding: const EdgeInsets.all(10.0),
+                ),
+              ),
+            ],
+          ),
+        );
   }
 }

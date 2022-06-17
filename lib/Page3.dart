@@ -65,7 +65,7 @@ class _Page3State extends State<Page3> {
                       const SizedBox(
                         height: 20,
                       ),
-                      _buildBanners(context),
+                      _buildHorizontalView(context),
                       const SizedBox(
                         height: 20,
                       ),
@@ -79,7 +79,7 @@ class _Page3State extends State<Page3> {
                       const SizedBox(
                         height: 20,
                       ),
-                      buildFutureBuilder(),
+                      _buildStaggeredView(),
                       const SizedBox(
                         height: 20,
                       ),
@@ -119,7 +119,7 @@ class _Page3State extends State<Page3> {
 
   //method for staggered list view
 
-  FutureBuilder<dynamic> buildFutureBuilder() {
+   _buildStaggeredView() {
     return FutureBuilder(
         future: staggeredData,
         builder: (context, snapshot) {
@@ -151,7 +151,7 @@ class _Page3State extends State<Page3> {
 
   //method for horizontal list view
 
-  _buildBanners(context) {
+  _buildHorizontalView(context) {
     return Card(
       child: Container(
         height: MediaQuery.of(context).size.height * .55,
@@ -221,16 +221,26 @@ class _Page3State extends State<Page3> {
   //api for horizontal view
 
   Future<List<UserModel>> userModel() async {
-    final response = await http.get(Uri.parse(ApiConstants().userModelApi));
+    try {
+      print("Calling User Model");
 
-    var data = jsonDecode(response.body);
+      final response = await http.get(Uri.parse(ApiConstants().userModelApi));
+      print("Calling User Model2");
 
-    if (response.statusCode == 200) {
-      for (Map i in data) {
-        userList.add(UserModel.fromJson(i));
+      print(response.body);
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        for (Map i in data) {
+          userList.add(UserModel.fromJson(i));
+        }
+        print("User list lenght : ${userList[0].image}");
       }
-      print("User list lenght : ${userList[0].image}");
+    } catch (e, s) {
+      print(e.toString());
+      print(s.toString());
     }
+
     return userList;
   }
 
