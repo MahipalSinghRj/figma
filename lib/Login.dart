@@ -2,8 +2,10 @@ import 'package:figma/ApiConstants/ApiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Dashboard.dart';
 import 'LoggedScreen.dart';
+import 'Utils/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController emailController = TextEditingController();
@@ -137,24 +140,43 @@ class _LoginState extends State<Login> {
                           if (_formKey.currentState!.validate()) {
                             await login(emailController.text.toString(),
                                     passwordController.text.toString())
-                                .then((value) {
-                              if (value) {
-                                showInSnackBar("Login Successful");
+                                .then((value) async {
 
-                                Future.delayed(const Duration(seconds: 2), () {
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                              if (value) {
+                                //showInSnackBar("Login Successful");
+
+                                //Utils.toastMessage("Login Successful");
+
+                                Utils.flushBarMessage("Login Successful","Congratulation", context);
+
+                                Future.delayed(const Duration(seconds: 3), () {
                                   emailController.text = "";
                                   passwordController.text = "";
 
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  Get.to(() => const Dashboard());
+
+                                  prefs.setString('email', 'eve.holt@reqres.in');
+                                  Navigator.pushReplacement(context,
+                                      MaterialPageRoute(builder: (BuildContext ctx) => Dashboard()));
+
+                                  print("*************prefs*********${prefs}");
+                                  print(prefs.toString());
+
                                 });
                               } else {
-                                showInSnackBar("Invalid credentials...");
+                                //showInSnackBar("Invalid credentials...");
+
+                                //Utils.toastMessage("Invalid credentials...");
+
+                                Utils.flushBarMessage("Please enter correct Credentials","Login Failed", context);
                               }
                             });
                           }
+
 
                         },
                         child: const Text(
@@ -188,14 +210,11 @@ class _LoginState extends State<Login> {
         print("Failed");
         return false;
       }
+
     } catch (e) {
       return false;
     }
+
   }
 
-  void showInSnackBar(String value) {
-    _scaffoldKey.currentState!.showSnackBar(SnackBar(
-      content: Text(value),
-    ));
-  }
 }

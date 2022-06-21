@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Login.dart';
 import 'Page1.dart';
 import 'Page2.dart';
 import 'Page3.dart';
@@ -20,7 +22,7 @@ class _DashboardState extends State<Dashboard> {
     const Page2(),
     const Page3(),
     const Page4(),
-    const Page5(),
+     Page5(),
   ];
 
   @override
@@ -28,6 +30,25 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       backgroundColor: const Color(0xffC4DFCB),
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              // do something
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('email');
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => Login()));
+            },
+
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+          ),
+        ],
         centerTitle: true,
         title: const Text(
           'Dashboard home',
@@ -142,47 +163,3 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 }
-
-/*Future login(email, password) async {
-
-    setState(() {
-      // to show loading progress
-    });
-
-    var headers = {
-      "Content-Type": "application/json",
-    };
-
-    final body = {"email": "$email", "password": "$password"};
-
-
-
-    final response = await http.post(Uri.parse("URL"),
-        body: jsonEncode(body), headers: headers);
-
-    int statusCode = response.statusCode;
-
-    if (statusCode == 200) {
-
-      // hide loading
-      var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-
-
-      setState(() {
-        Navigator.pop(context);
-        if (data['status'].toString() == "1") {
-
-
-        } else {
-         // show toast/snackbar
-        }
-      });
-    } else {
-      setState(() {
-        // hide loading
-      });
-
-    }
-
-}*/

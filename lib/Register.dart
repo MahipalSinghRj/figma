@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'LoggedScreen.dart';
+import 'Utils/utils.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -147,7 +148,8 @@ class _RegisterState extends State<Register> {
 
                               if(value){
 
-                                showInSnackBar("Registration Successfully");
+                                //showInSnackBar("Registration Successfully");
+                                Utils.flushBarMessage("Registration Successful","Congratulation", context);
 
 
                                 Future.delayed(const Duration(seconds: 2), () {
@@ -160,7 +162,9 @@ class _RegisterState extends State<Register> {
                                 });
                               }else{
 
-                                showInSnackBar("Registration Failed...");
+                                //showInSnackBar("Registration Failed...");
+
+                                Utils.flushBarMessage("Please enter correct Credentials","Registration Failed...", context);
                               }
 
                             });

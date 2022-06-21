@@ -119,7 +119,7 @@ class _Page3State extends State<Page3> {
 
   //method for staggered list view
 
-   _buildStaggeredView() {
+  _buildStaggeredView() {
     return FutureBuilder(
         future: staggeredData,
         builder: (context, snapshot) {
@@ -248,21 +248,27 @@ class _Page3State extends State<Page3> {
 
   Future<List<StaggeredModel>> staggeredModel() async {
     staggeredList = [];
-    final response =
-        await http.get(Uri.parse(ApiConstants().staggeredModelApi));
+    try{
+      final response =
+          await http.get(Uri.parse(ApiConstants().staggeredModelApi));
 
-    var dataStaggered = jsonDecode(response.body);
+      var dataStaggered = jsonDecode(response.body);
 
-    print("*****************************");
-    print(dataStaggered);
-    if (response.statusCode == 200) {
-      for (Map i in dataStaggered) {
-        print(i);
-        staggeredList.add(StaggeredModel.fromJson(i));
+      print("*****************************");
+      print("Staggered list ${response.body}");
+      print(dataStaggered);
+      if (response.statusCode == 200) {
+        for (Map i in dataStaggered) {
+          print(i);
+          staggeredList.add(StaggeredModel.fromJson(i));
 
-        print("9999999999999");
-        print(staggeredList.length);
+          print("9999999999999");
+          print(staggeredList.length);
+        }
       }
+    }catch (e, s) {
+    print(e.toString());
+    print(s.toString());
     }
 
     return staggeredList;
