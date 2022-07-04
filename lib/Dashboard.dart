@@ -1,6 +1,7 @@
+import 'package:figma/res/components/ConstString.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Login.dart';
+import 'signin.dart';
 import 'Page1.dart';
 import 'Page2.dart';
 import 'Page3.dart';
@@ -51,7 +52,7 @@ class _DashboardState extends State<Dashboard> {
         ],
         centerTitle: true,
         title: const Text(
-          'Dashboard home',
+          ConstString.dashboardScreenAppBar,
         ),
       ),
       body: pages[pageIndex],
@@ -130,12 +131,12 @@ class _DashboardState extends State<Dashboard> {
             },
             icon: pageIndex == 3
                 ? const Icon(
-                    Icons.message,
+                    Icons.notification_add,
                     color: Colors.pinkAccent,
                     size: 35,
                   )
                 : const Icon(
-                    Icons.message_outlined,
+                    Icons.notification_add_outlined,
                     color: Colors.green,
                     size: 35,
                   ),

@@ -1,35 +1,50 @@
-import 'dart:typed_data';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
-import 'dart:convert';
 
 class Utility {
-  //
-  static const String KEY = "IMAGE_KEY";
 
-  static Future<String?> getImageFromPreferences() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(KEY) ?? null;
+
+  static const String IMAGE_KEY = "IMAGES_KEY";
+  static const String USER_NAME_KEY = "USER_NAME_KEY";
+  static const String MOBILE_NUMBER_KEY = "MOBILE_NUMBER_KEY";
+
+  final Future<SharedPreferences> prefs =  SharedPreferences.getInstance();
+
+  ///*************SAVE IMAGE FROM CAMERA/GALLERY**************///
+
+  static Future<String?> getImageByPref() async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.getString(IMAGE_KEY) ?? null;
   }
 
-  static Future<bool> saveImageToPreferences(String value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(KEY, value);
+  static Future<bool> setImageByPref(String value) async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.setString(IMAGE_KEY, value);
   }
 
-  static Image imageFromBase64String(String base64String) {
-    return Image.memory(
-      base64Decode(base64String),
-      fit: BoxFit.fill,
-    );
+  ///*************SAVE USER NAME**************///
+
+  static Future<String?> getUserNameByPref() async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.getString(USER_NAME_KEY) ?? "";
   }
 
-  static Uint8List dataFromBase64String(String base64String) {
-    return base64Decode(base64String);
+  static Future<bool?> setUsernameByPref(String value) async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.setString(USER_NAME_KEY, value);
   }
 
-  static String base64String(Uint8List data) {
-    return base64Encode(data);
+  ///*************SAVE MOBILE NUMBER**************///
+
+  static Future<String?> getMobileNumberByPref() async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.getString(MOBILE_NUMBER_KEY) ?? "";
   }
+
+  static Future<bool?> setMobileNumberByPref(String value) async {
+    final  prefs = await SharedPreferences.getInstance();
+    return prefs.setString(MOBILE_NUMBER_KEY, value);
+  }
+
 }
+

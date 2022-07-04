@@ -3,10 +3,23 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:another_flushbar/flushbar.dart';
 
 class Utils {
+
+  // focus node
+  static void filedFocusChange(BuildContext context, FocusNode current, FocusNode nextFocus){
+
+    current.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+
+
+  }
+
+
+  // toast message
   static toastMessage(String message) {
     Fluttertoast.showToast(msg: message);
   }
 
+  //flushBar message
   static flushBarMessage(String message,String title, BuildContext context) {
     Flushbar(
 
@@ -37,4 +50,5 @@ class Utils {
       messageSize: 17,
     )..show(context);
   }
+
 }
