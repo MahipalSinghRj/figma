@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "779592890261",
+    "project_id": "jai-bhawani-81966",
+    "storage_bucket": "jai-bhawani-81966.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779592890261:android:473484a168240725d7289c",
+        "android_client_info": {
+          "package_name": "com.example.figma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "779592890261-v0l2s1qv914h836acs8tqpli1c8bmoet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9oU7wY9cjKwcuNQJzomWCRYjAXzfFIKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "779592890261-v0l2s1qv914h836acs8tqpli1c8bmoet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,9 +1,11 @@
+import 'package:figma/signin.dart';
+import 'package:figma/res/Colors.dart';
+import 'package:figma/res/components/ConstString.dart';
+import 'package:figma/res/components/round_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
-import 'Login.dart';
-import 'Register.dart';
+import 'signup.dart';
 
 class LoggedScreen extends StatefulWidget {
   const LoggedScreen({Key? key}) : super(key: key);
@@ -62,7 +64,7 @@ class _LoggedScreenState extends State<LoggedScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Bhawani_Project",
+                               ConstString.loggedScreenBhawani,
                                 style: TextStyle(fontWeight: FontWeight.w800),
                               ),
                               const SizedBox(
@@ -71,7 +73,7 @@ class _LoggedScreenState extends State<LoggedScreen> {
                               Row(
                                 children: const [
                                   Text(
-                                    "@Mahi_7773",
+                                    ConstString.loggedScreenMahi,
                                     style: TextStyle(color: Colors.black54),
                                   ),
                                 ],
@@ -94,52 +96,52 @@ class _LoggedScreenState extends State<LoggedScreen> {
 
   Padding buildPadding() {
     return Padding(
-          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                child: Container(
-                  width: 167,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purpleAccent),
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.white),
-                  child: const Text(
-                    'LOGIN',
-                    style: TextStyle(color: Colors.purpleAccent),
-                    textAlign: TextAlign.center,
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                ),
-                onTap: () {
-                  print("********Login*********");
-                  Get.off(Login());
-                },
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => Register());
-                  print("********Register*********");
-                },
-                child: Container(
-                  width: 167,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      //border: Border.all(color: Colors.purpleAccent),
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.black),
-                  child: const Text(
-                    'REGISTER',
-                    style: TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                ),
-              ),
-            ],
+      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+      child: Row(
+        children: [
+          ///go to login field
+          SizedBox(
+            width: 10.0,
           ),
-        );
+          Expanded(
+            flex: 1,
+            child: Buttons(
+              textColor: Colors.purpleAccent,
+              onPress: () {
+                print("********Login*********");
+                Get.off(Login());
+              },
+              backgroundColor: AppColors.WhiteColor,
+              borderColor: Colors.purpleAccent,
+              title: ConstString.loggedScreenSignIn,
+              fontSize: 12.0,
+            ),
+          ),
+
+          SizedBox(
+            width: 10.0,
+          ),
+
+          ///go to sign up field
+          Expanded(
+            flex: 1,
+            child: Buttons(
+              textColor: Colors.white,
+              onPress: () {
+                print("********Sign up*********");
+                Get.off(SignUp());
+              },
+              backgroundColor: AppColors.blackColor,
+              borderColor: Colors.purpleAccent,
+              title: ConstString.loggedScreenSignUP,
+              fontSize: 12.0,
+            ),
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+        ],
+      ),
+    );
   }
 }
